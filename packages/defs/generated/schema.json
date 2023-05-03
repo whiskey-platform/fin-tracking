@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "title": "Schema",
+  "definitions": {
+    "PostLinkTokensExchangeRequestBody": {
+      "type": "object",
+      "properties": {
+        "publicToken": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "publicToken"
+      ],
+      "$schema": "http://json-schema.org/draft-04/schema#"
+    },
+    "ErrorSchema": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object"
+        },
+        "trackingId": {
+          "type": "string"
+        }
+      },
+      "$schema": "http://json-schema.org/draft-04/schema#"
+    }
+  },
+  "properties": {
+    "PostLinkTokensExchangeRequestBody": {
+      "$ref": "#/definitions/PostLinkTokensExchangeRequestBody"
+    },
+    "ErrorSchema": {
+      "$ref": "#/definitions/ErrorSchema"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@fin-tracking/api",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "sst bind 'vitest'",
+    "typecheck": "tsc -noEmit"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.111",
+    "@types/node": "^18.14.1",
+    "sst": "2.8.3"
+  },
+  "dependencies": {
+    "@fin-tracking/core": "link:../core",
+    "@fin-tracking/defs": "link:../defs",
+    "@middy/core": "^4.4.0",
+    "@middy/http-json-body-parser": "^4.4.0",
+    "ajv": "^8.12.0",
+    "reflect-metadata": "^0.1.13",
+    "sst": "2.8.3",
+    "typedi": "^0.10.0"
+  }
+}
