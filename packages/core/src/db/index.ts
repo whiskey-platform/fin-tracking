@@ -6,6 +6,8 @@ import { fetch } from 'undici';
 interface FinancialInstitution {
   id: string;
   name: string;
+  logo?: string | null | undefined;
+  primary_color?: string | null | undefined;
 }
 
 interface FinancialCredentials {

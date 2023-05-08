@@ -27,7 +27,12 @@ const exchangePublicToken: APIGatewayJSONBodyEventHandler<
   // save to DB
   await db
     .replaceInto('financial_institutions')
-    .values({ id: institution.institution_id, name: institution.name })
+    .values({
+      id: institution.institution_id,
+      name: institution.name,
+      logo: institution.logo,
+      primary_color: institution.primary_color,
+    })
     .execute();
   await db
     .replaceInto('financial_credentials')
@@ -40,7 +45,11 @@ const exchangePublicToken: APIGatewayJSONBodyEventHandler<
 
   return json({
     itemId: item.item_id,
-    institutionName: institution.name,
+    institution: {
+      name: institution.name,
+      logo: institution.logo,
+      primaryColor: institution.primary_color,
+    },
   });
 };
 
