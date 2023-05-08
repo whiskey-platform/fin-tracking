@@ -9,7 +9,7 @@ export function API({ stack, app }: StackContext) {
   let customDomain: ApiDomainProps | undefined;
   if (!app.local && app.stage !== 'local') {
     customDomain = {
-      path: 'receipts',
+      path: 'fin-tracking',
       cdk: {
         domainName: DomainName.fromDomainNameAttributes(stack, 'ApiDomain', {
           name: StringParameter.valueFromLookup(
