@@ -42,12 +42,54 @@ paths:
                 properties:
                   itemId:
                     type: string
+                  institution:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      logo:
+                        type: string
+                      primaryColor:
+                        type: string
         default:
           description: Error response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorSchema'
+    /accounts:
+      get:
+        responses:
+          '200':
+            description: Successfully retrieved linked accounts
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      institution:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          logo:
+                            type: string
+                          primaryColor:
+                            type: string
+          default:
+            description: Error response
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorSchema'
 
 components:
   schemas:

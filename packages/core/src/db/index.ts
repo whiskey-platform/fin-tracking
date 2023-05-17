@@ -14,6 +14,7 @@ interface FinancialCredentials {
   user_id: number;
   item_id: string;
   access_token: string;
+  institution_id: string;
 }
 
 interface Database {

@@ -35,6 +35,7 @@ export function API({ stack, app }: StackContext) {
         'packages/api/src/functions/account-link/create-link-token.handler',
       'POST /link-tokens/exchange':
         'packages/api/src/functions/account-link/exchange-public-token.handler',
+      'GET /accounts': 'packages/api/src/functions/get-accounts.handler',
     },
   });
 

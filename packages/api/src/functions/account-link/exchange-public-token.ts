@@ -40,12 +40,14 @@ const exchangePublicToken: APIGatewayJSONBodyEventHandler<
       user_id: parseInt(event.headers['x-user-id']!),
       item_id: item.item_id,
       access_token: exchangePublicTokenResponse.access_token,
+      institution_id: institution.institution_id,
     })
     .execute();
 
   return json({
     itemId: item.item_id,
     institution: {
+      id: institution.institution_id,
       name: institution.name,
       logo: institution.logo,
       primaryColor: institution.primary_color,
