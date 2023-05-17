@@ -25,7 +25,7 @@ const getAccounts: APIGatewayProxyHandlerV2 = async event => {
     statusCode: 200,
     body: JSON.stringify(
       accounts.map(val => ({
-        id: val.item_id,
+        itemId: val.item_id,
         institution: {
           id: val.institution_id,
           name: val.institution_name,
