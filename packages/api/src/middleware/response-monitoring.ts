@@ -14,16 +14,10 @@ export interface IError {
 
 type APIGatewayEvent<S> = APIGatewayProxyEventV2 | APIGatewayJSONBodyEvent<S>;
 
-const requestMonitoring = <S>(): middy.MiddlewareObj<
+const responseMonitoring = <S>(): middy.MiddlewareObj<
   APIGatewayEvent<S>,
   APIGatewayProxyResultV2
 > => {
-  const before: middy.MiddlewareFn<APIGatewayEvent<S>, APIGatewayProxyResultV2> = request => {
-    logger.defaultMeta = { requestId: request.context.awsRequestId };
-    if (!process.env.IS_LOCAL)
-      logger.debug('Incoming API Gateway Request', { request: request.event });
-  };
-
   const after: middy.MiddlewareFn<APIGatewayEvent<S>, APIGatewayProxyResultV2> = request => {
     if (!process.env.IS_LOCAL) logger.debug('API Gateway Response', { response: request.response });
   };
@@ -36,7 +30,7 @@ const requestMonitoring = <S>(): middy.MiddlewareObj<
     logger.error('error', { error: request.error });
     if (request.error as IError) {
       const error = request.error as IError;
-      logger.error(error.message, error.details ? { details: error.details } : undefined);
+      logger.error(error.message, { details: error.details });
       request.response = {
         statusCode: error.status,
         body: JSON.stringify({
@@ -52,10 +46,9 @@ const requestMonitoring = <S>(): middy.MiddlewareObj<
   };
 
   return {
-    before,
     after,
     onError,
   };
 };
 
-export default requestMonitoring;
+export default responseMonitoring;

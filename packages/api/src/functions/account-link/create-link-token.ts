@@ -1,10 +1,9 @@
 import 'reflect-metadata';
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-import { PlaidService } from '@fin-tracking/core';
+import { PlaidService, wrapped } from '@fin-tracking/core';
 import Container from 'typedi';
-import middy from '@middy/core';
-import requestMonitoring from '../../middleware/request-monitoring';
 import { validateAuth } from '../../middleware/validate-auth';
+import responseMonitoring from '../../middleware/response-monitoring';
 
 const createLinkToken: APIGatewayProxyHandlerV2 = async event => {
   const plaid = Container.get(PlaidService);
@@ -15,4 +14,4 @@ const createLinkToken: APIGatewayProxyHandlerV2 = async event => {
     body: JSON.stringify(createTokenResponse),
   };
 };
-export const handler = middy(createLinkToken).use(requestMonitoring()).use(validateAuth());
+export const handler = wrapped(createLinkToken).use(responseMonitoring()).use(validateAuth());

@@ -37,6 +37,7 @@ export function API({ stack, app }: StackContext) {
         'packages/api/src/functions/account-link/exchange-public-token.handler',
       'GET /accounts': 'packages/api/src/functions/get-accounts.handler',
     },
+    customDomain,
   });
 
   api.bind([AUTH_BASE_URL, DATABASE_URL, PLAID_CLIENT_ID, PLAID_SECRET]);

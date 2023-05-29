@@ -1,8 +1,8 @@
-import { db } from '@fin-tracking/core';
+import { db, wrapped } from '@fin-tracking/core';
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-import requestMonitoring from '../middleware/request-monitoring';
 import middy from '@middy/core';
 import { validateAuth } from '../middleware/validate-auth';
+import responseMonitoring from '../middleware/response-monitoring';
 
 const getAccounts: APIGatewayProxyHandlerV2 = async event => {
   const accounts = await db
@@ -37,4 +37,4 @@ const getAccounts: APIGatewayProxyHandlerV2 = async event => {
   };
 };
 
-export const handler = middy(getAccounts).use(requestMonitoring()).use(validateAuth());
+export const handler = wrapped(getAccounts).use(responseMonitoring()).use(validateAuth());

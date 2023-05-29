@@ -1,9 +1,7 @@
 import 'reflect-metadata';
-import { PlaidService, db } from '@fin-tracking/core';
-import middy from '@middy/core';
+import { PlaidService, db, wrapped } from '@fin-tracking/core';
 import jsonBodyParser from '@middy/http-json-body-parser';
 import Container from 'typedi';
-import requestMonitoring from '../../middleware/request-monitoring';
 import { validateAuth } from '../../middleware/validate-auth';
 import { APIGatewayJSONBodyEventHandler, json } from '../../utils/lambda-utils';
 import {
@@ -11,6 +9,7 @@ import {
   PostLinkTokensExchangeRequestBodyDecoder,
 } from '@fin-tracking/defs';
 import { validateBody } from '../../middleware/validate-body';
+import responseMonitoring from '../../middleware/response-monitoring';
 
 const exchangePublicToken: APIGatewayJSONBodyEventHandler<
   PostLinkTokensExchangeRequestBody
@@ -55,8 +54,8 @@ const exchangePublicToken: APIGatewayJSONBodyEventHandler<
   });
 };
 
-export const handler = middy(exchangePublicToken)
-  .use(requestMonitoring())
+export const handler = wrapped(exchangePublicToken)
   .use(jsonBodyParser())
   .use(validateBody(PostLinkTokensExchangeRequestBodyDecoder))
-  .use(validateAuth());
+  .use(validateAuth())
+  .use(responseMonitoring());
